@@ -5,7 +5,7 @@
 # Multiview DUSt3R model class
 # support arbitray number of input views,:one reference view and serveral sources views
 # --------------------------------------------------------
-
+from typing import Optional
 import os
 import torch
 import torch.nn as nn
@@ -149,7 +149,7 @@ class Multiview3D(nn.Module, PyTorchModelHubMixin):
     def _set_downstream_head(self, output_mode, head_type, landscape_only, 
                              depth_mode, conf_mode, patch_size, img_size):
         assert img_size[0] % patch_size == 0 and img_size[1] % patch_size == 0, \
-            f'{img_size=} must be multiple of {patch_size=}'
+            f'{img_size} must be multiple of {patch_size}'
         self.output_mode = output_mode
         self.head_type = head_type
         self.depth_mode = depth_mode
@@ -282,7 +282,7 @@ class Multiview3D(nn.Module, PyTorchModelHubMixin):
 
     def _decode_multiview(self, ref_feats:torch.Tensor, src_feats:torch.Tensor, 
                           ref_poses:torch.Tensor, src_poses:torch.Tensor, 
-                          ref_pes:torch.Tensor|None, src_pes:torch.Tensor|None):
+                          ref_pes:Optional[torch.Tensor], src_pes:Optional[torch.Tensor]):
         """exchange information between reference and source views in the decoder
 
         About naming convention:

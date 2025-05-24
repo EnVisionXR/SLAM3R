@@ -162,7 +162,7 @@ def estimate_focal_knowing_depth(pts3d, pp, focal_mode='median', min_focal=0., m
             # update the scaling with the new weights
             focal = (w * dot_xy_px).mean(dim=1) / (w * dot_xy_xy).mean(dim=1)
     else:
-        raise ValueError(f'bad {focal_mode=}')
+        raise ValueError(f'bad {focal_mode}')
 
     focal_base = max(H, W) / (2 * np.tan(np.deg2rad(60) / 2))  # size / 1.1547005383792515
     focal = focal.clip(min=min_focal*focal_base, max=max_focal*focal_base)

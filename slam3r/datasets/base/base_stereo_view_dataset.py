@@ -62,10 +62,10 @@ class BaseStereoViewDataset (EasyDataset):
     def __repr__(self):
         resolutions_str = '['+';'.join(f'{w}x{h}' for w, h in self._resolutions)+']'
         return f"""{type(self).__name__}({self.get_stats()},
-            {self.split=},
-            {self.seed=},
+            {self.split},
+            {self.seed},
             resolutions={resolutions_str},
-            {self.transform=})""".replace('self.', '').replace('\n', '').replace('   ', '')
+            {self.transform})""".replace('self.', '').replace('\n', '').replace('   ', '')
 
     def _get_views(self, idx, resolution, rng):
         raise NotImplementedError()
@@ -174,8 +174,8 @@ class BaseStereoViewDataset (EasyDataset):
                 width = height = resolution
             else:
                 width, height = resolution
-            assert isinstance(width, int), f'Bad type for {width=} {type(width)=}, should be int'
-            assert isinstance(height, int), f'Bad type for {height=} {type(height)=}, should be int'
+            assert isinstance(width, int), f'Bad type for {width} {type(width)}, should be int'
+            assert isinstance(height, int), f'Bad type for {height} {type(height)}, should be int'
             assert width >= height
             self._resolutions.append((width, height))
 
@@ -232,7 +232,7 @@ def is_good_type(key, v):
     if isinstance(v, (str, int, tuple)):
         return True, None
     if v.dtype not in (np.float32, torch.float32, bool, np.int32, np.int64, np.uint8):
-        return False, f"bad {v.dtype=}"
+        return False, f"bad {v.dtype}"
     return True, None
 
 

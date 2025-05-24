@@ -128,11 +128,11 @@ def get_multiview_scale(pts:list, valid:list, norm_mode='avg_dis'):
         elif dis_mode == 'log1p':
             all_dis = torch.log1p(all_dis)
         else:
-            raise ValueError(f'bad {dis_mode=}')
+            raise ValueError(f'bad {dis_mode}')
 
         norm_factor = all_dis.sum(dim=1) / (all_nnz + 1e-8)    
     else: 
-        raise ValueError(f'bad {norm_mode=}')
+        raise ValueError(f'bad {norm_mode}')
 
     norm_factor = norm_factor.clip(min=1e-8)
     while norm_factor.ndim < pts[0].ndim:

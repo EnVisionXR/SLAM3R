@@ -67,7 +67,7 @@ def geotrf(Trf, pts, ncol=None, norm=False):
         elif Trf.shape[-1] == d+1:
             pts = torch.einsum("bij, bhwj -> bhwi", Trf[:, :d, :d], pts) + Trf[:, None, None, :d, d]
         else:
-            raise ValueError(f'bad shape, not ending with 3 or 4, for {pts.shape=}')
+            raise ValueError(f'bad shape, not ending with 3 or 4, for {pts.shape}')
     else:
         if Trf.ndim >= 3:
             n = Trf.ndim-2
@@ -339,7 +339,7 @@ def normalize_pointcloud(pts1, pts2, norm_mode='avg_dis', valid1=None, valid2=No
                 pts2 = pts2 * warp_factor[:, W1*H1:].view(-1, H2, W2, 1)
             all_dis = log_dis  # this is their true distance afterwards
         else:
-            raise ValueError(f'bad {dis_mode=}')
+            raise ValueError(f'bad {dis_mode}')
 
         norm_factor = all_dis.sum(dim=1) / (nnz1 + nnz2 + 1e-8)  
     else:
@@ -358,7 +358,7 @@ def normalize_pointcloud(pts1, pts2, norm_mode='avg_dis', valid1=None, valid2=No
         elif norm_mode == 'sqrt':
             norm_factor = all_dis.sqrt().nanmean(dim=1)**2
         else:
-            raise ValueError(f'bad {norm_mode=}')
+            raise ValueError(f'bad {norm_mode}')
 
     norm_factor = norm_factor.clip(min=1e-8)
     while norm_factor.ndim < pts1.ndim:
@@ -393,7 +393,7 @@ def multiview_normalize_pointcloud(pts:list, norm_mode='avg_dis', valid=None):
         elif dis_mode == 'log1p':
             all_dis = torch.log1p(all_dis)
         else:
-            raise ValueError(f'bad {dis_mode=}')
+            raise ValueError(f'bad {dis_mode}')
 
         norm_factor = all_dis.sum(dim=1) / (all_nnz + 1e-8)  
     else:
@@ -414,7 +414,7 @@ def multiview_normalize_pointcloud(pts:list, norm_mode='avg_dis', valid=None):
         elif norm_mode == 'sqrt':
             norm_factor = all_dis.sqrt().nanmean(dim=1)**2
         else:
-            raise ValueError(f'bad {norm_mode=}')
+            raise ValueError(f'bad {norm_mode}')
 
     norm_factor = norm_factor.clip(min=1e-8)
     while norm_factor.ndim < pts[0].ndim:

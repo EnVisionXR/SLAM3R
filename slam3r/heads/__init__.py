@@ -16,4 +16,4 @@ def head_factory(head_type, output_mode, net, has_conf=False):
     elif head_type == 'dpt' and output_mode == 'pts3d':
         return create_dpt_head(net, has_conf=has_conf)
     else:
-        raise NotImplementedError(f"unexpected {head_type=} and {output_mode=}")
+        raise NotImplementedError(f"unexpected {head_type} and {output_mode}")

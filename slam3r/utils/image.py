@@ -34,7 +34,7 @@ def imread_cv2(path, options=cv2.IMREAD_COLOR):
         options = cv2.IMREAD_ANYDEPTH
     img = cv2.imread(path, options)
     if img is None:
-        raise IOError(f'Could not load image={path} with {options=}')
+        raise IOError(f'Could not load image={path} with {options}')
     if img.ndim == 3:
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     return img
@@ -88,7 +88,7 @@ def load_images(folder_or_list, size, square_ok=False,
         root, folder_content = '', folder_or_list
 
     else:
-        raise ValueError(f'bad {folder_or_list=} ({type(folder_or_list)})')
+        raise ValueError(f'bad {folder_or_list} ({type(folder_or_list)})')
    
     # sort images by number in name
     len_postfix = len(postfix) if postfix is not None \
@@ -208,7 +208,7 @@ def load_scannetpp_images_pts3dcam(folder_or_list, size, square_ok=False, verbos
         root, folder_content = '', folder_or_list
 
     else:
-        raise ValueError(f'bad {folder_or_list=} ({type(folder_or_list)})')
+        raise ValueError(f'bad {folder_or_list} ({type(folder_or_list)})')
 
     if(img_freq > 0):
         folder_content = folder_content[1000::img_freq]

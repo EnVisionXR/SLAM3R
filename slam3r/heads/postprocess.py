@@ -43,7 +43,7 @@ def reg_dense_depth(xyz, mode):
     if mode == 'exp':
         return xyz * torch.expm1(d)
 
-    raise ValueError(f'bad {mode=}')
+    raise ValueError(f'bad {mode}')
 
 
 def reg_dense_conf(x, mode):
@@ -55,4 +55,4 @@ def reg_dense_conf(x, mode):
         return vmin + x.exp().clip(max=vmax-vmin)
     if mode == 'sigmoid':
         return (vmax - vmin) * torch.sigmoid(x) + vmin
-    raise ValueError(f'bad {mode=}')
+    raise ValueError(f'bad {mode}')
